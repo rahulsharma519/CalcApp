@@ -1,0 +1,170 @@
+package com.example.rahul_000.complexcalc;
+
+/**
+ * Created by Rahul_000 on 1/5/2016.
+   This class performs all the various calculation
+ */
+public class DoOperations
+ {
+    private double Operand;
+    private double waitingOperand;
+    private String waitingOperator;
+    private double calcMemory;
+
+    // operator types variables
+        public static final String ADD = "+";
+        public static final String SUBTRACT = "-";
+        public static final String MULTIPLY = "*";
+        public static final String DIVIDE = "/";
+        public static final String FACT = "!";
+        public static final String CLEAR = "C" ;
+        public static final String CLEARMEMORY = "MC";
+        public static final String ADDTOMEMORY = "M+";
+        public static final String SUBTRACTFROMMEMORY = "M-";
+        public static final String RECALLMEMORY = "MR";
+        public static final String SQUAREROOT = "√";
+        public static final String SQUARED = "x²";
+        public static final String INVERT = "1/x";
+        public static final String TOGGLESIGN = "+/-";
+        public static final String SINE = "Sin";
+        public static final String COSINE = "Cos";
+        public static final String TANGENT = "Tan";
+        public static final String CUBED= "x³";
+        public static final String PERCENT="%";
+        public static final String LOG="Log";
+
+
+    public DoOperations() {
+       //variable initialization
+        Operand = 0;
+        waitingOperand = 0;
+        waitingOperator = "";
+        calcMemory = 0;
+    }
+
+    public void setOperand(double operand) {
+        Operand = operand;
+    }
+
+    public double getResult() {
+        return Operand;
+    }
+
+
+    public void setMemory(double calculatorMemory) {
+        calcMemory = calculatorMemory;
+    }
+
+
+    public double getMemory() {
+        return calcMemory;
+    }
+
+    public String toString() {
+        return Double.toString(Operand);
+    }
+    //performing math operations
+    public double performOperation(String operator) {
+
+        switch(operator){
+            case CLEARMEMORY:
+                calcMemory=0;
+                break;
+            case CLEAR:
+                Operand=0;
+                waitingOperator="";
+                waitingOperand=0;
+                break;
+            case ADDTOMEMORY:
+                calcMemory = calcMemory + Operand;
+                break;
+            case SUBTRACTFROMMEMORY:
+                calcMemory = calcMemory - Operand;
+                break;
+            case RECALLMEMORY:
+                Operand = calcMemory;
+                break;
+            case SQUAREROOT:
+                Operand = Math.sqrt(Operand);
+                break;
+
+            case SQUARED:
+                Operand=Operand*Operand;
+                break;
+            case CUBED:
+                Operand=Operand*Operand*Operand;
+                break;
+
+            case LOG:
+                Operand=Math.log10(Operand);
+                break;
+
+            case INVERT:
+                if (Operand != 0) {
+                    Operand = 1 / Operand;
+                }
+                break;
+            case TOGGLESIGN:
+                Operand=-Operand;
+                break;
+            case SINE:
+                Operand=Math.sin(Math.toRadians(Operand));
+                break;
+            case COSINE:
+                Operand=Math.cos(Math.toRadians(Operand));
+                break;
+            case TANGENT:
+                Operand=Math.tan(Math.toRadians(Operand));
+                break;
+            case FACT:
+                Operand=fact(Operand);
+                break;
+
+
+
+        }
+            performWaitingOperation();
+            waitingOperator = operator;
+            waitingOperand = Operand;
+
+
+        return Operand;
+    }
+    //operations for math functions that need two numbers
+    public void performWaitingOperation() {
+
+        if (waitingOperator.equals(ADD)) {
+
+            Operand = waitingOperand + Operand;
+        }
+        else if (waitingOperator.equals(SUBTRACT)) {
+            Operand = waitingOperand - Operand;
+        }
+        else if (waitingOperator.equals(PERCENT)) {
+            Operand = waitingOperand % Operand;
+        }
+        else if (waitingOperator.equals(MULTIPLY)) {
+            Operand = waitingOperand * Operand;
+        }
+        else if (waitingOperator.equals(DIVIDE)) {
+            if (Operand != 0) {
+                Operand = waitingOperand / Operand;
+            }
+        }
+
+    }
+     //method to find the factorial
+     private double fact(double n) {
+
+
+     if (n <= 1) {
+         return 1;
+     }
+     else {
+         return n * fact(n-1);
+     }
+ }
+ }
+
+
+
